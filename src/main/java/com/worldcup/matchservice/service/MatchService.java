@@ -18,6 +18,10 @@ public class MatchService {
     @Autowired
     private MatchRepository matchRepository;
 
+    public MatchService(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
+
     public MatchResponse getMatchById(UUID id) {
         MatchDto match = matchRepository.getMatchById(id);
 
