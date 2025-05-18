@@ -5,5 +5,11 @@ spring:
   application:
     name: match-service
 
+security:
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: http://localhost:8080
+
 db-service:
-  url: http://localhost:8082
+  url: http://db-service:8082

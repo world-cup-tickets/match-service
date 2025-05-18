@@ -1,0 +1,19 @@
+services:
+  match-service:
+    image: match-service
+    ports:
+      - "8083:8083"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_URL: jdbc:postgresql://worldcup-db:5432/worldcup
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+    networks:
+        - worldcup-net
+
+networks:
+  worldcup-net:
+    external: true

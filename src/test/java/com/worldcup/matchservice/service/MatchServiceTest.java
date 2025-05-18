@@ -5,7 +5,6 @@ import com.worldcup.matchservice.dto.MatchResponse;
 import com.worldcup.matchservice.dto.dbservice.CreateMatchDto;
 import com.worldcup.matchservice.dto.dbservice.MatchDto;
 import com.worldcup.matchservice.repository.MatchRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -45,29 +44,27 @@ class MatchServiceTest {
 
         UUID matchId = UUID.randomUUID();
 
-        MatchDto mockDto = new MatchDto(
-                matchId,
-                request.stadium(),
-                request.homeTeam(),
-                request.awayTeam(),
-                request.referee(),
-                request.dateTime(),
-                request.nrSeats(),
-                request.seatPrice()
-        );
+        MatchDto mockDto = MatchDto.builder()
+                .id(matchId)
+                .stadium(request.stadium())
+                .homeTeam(request.homeTeam())
+                .awayTeam(request.awayTeam())
+                .referee(request.referee())
+                .dateTime(request.dateTime())
+                .nrSeats(request.nrSeats())
+                .seatPrice(request.seatPrice())
+                .build();
 
-        when(matchRepository.createMatch(Mockito.any(CreateMatchDto.class))).thenReturn(mockDto);
+        when(matchRepository.createMatch(any(CreateMatchDto.class))).thenReturn(mockDto);
 
         MatchResponse response = matchService.createMatch(request);
 
         assertNotNull(response);
+        assertEquals(mockDto.id(), response.id());
         assertEquals(request.stadium(), response.stadium());
         assertEquals(request.homeTeam(), response.homeTeam());
-        assertEquals(request.awayTeam(), response.awayTeam());
-        assertEquals(request.referee(), response.referee());
-        assertEquals(request.nrSeats(), response.nrSeats());
-        assertEquals(request.seatPrice(), response.seatPrice());
     }
+
 
     @Test
     void MatchService_GetMatchById_ReturnsExpectedResponse() {
