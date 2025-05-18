@@ -9,7 +9,7 @@ security:
   oauth2:
     resourceserver:
       jwt:
-        issuer-uri: http://localhost:8080
+        issuer-uri: ${ISSUER_URI:http://localhost:8080}
 
 db-service:
-  url: http://db-service:8082
+  url: ${DB_SERVICE_URL:http://localhost:8082}
