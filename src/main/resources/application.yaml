@@ -5,11 +5,11 @@ spring:
   application:
     name: match-service
 
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: ${ISSUER_URI:http://localhost:8080}
+#security:
+#  oauth2:
+#    resourceserver:
+#      jwt:
+#        issuer-uri: ${ISSUER_URI:http://localhost:8080}
 
 db-service:
   url: ${DB_SERVICE_URL:http://localhost:8082}
